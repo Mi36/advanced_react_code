@@ -1,0 +1,21 @@
+import React, { useEffect, useState } from 'react';
+
+export const TrackerLoader = ({ userId, children }) => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    (async () => {
+      //  const response = await axios.get(`/users/${userId}`);
+      const response = { userId };
+      setData(response);
+    })();
+  }, [userId]);
+  return (
+    <>
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, { data });
+        }
+      })}
+    </>
+  );
+};
