@@ -1,0 +1,55 @@
+import React from 'react';
+//import { TrackOrderDataSource } from './TrackOrderDataSource';
+import TrackOrderUI from './TrackOrderUI';
+// import { TrackerLoader } from './TrackerLoader';
+// import { ResourceLoader } from '../../helper/ResourceLoader';
+import { DataSource } from '../../helper/DataSource';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+//const userIds = ['1', '2', '3'];
+
+const TrackOrder = () => {
+  const getServerData = (url) => async () => {
+    const response = await axios.get(url);
+    return response.data;
+  };
+
+  const getLocalStorageData = (key) => async () => {
+    const response = await AsyncStorage.getItem(key);
+    return response;
+  };
+
+  //NOTE: getting data from localstorage
+
+  return (
+    // <TrackOrderDataSource>
+    //   <TrackOrderUI />
+    // </TrackOrderDataSource>
+    // <>
+    //   {userIds?.map((id) => {
+    //     return (
+    //       <TrackerLoader userId={id}>
+    //         <TrackOrderUI />
+    //       </TrackerLoader>
+    //     );
+    //   })}
+    // </>
+    // <ResourceLoader resourceUrl={'/users/test'} resourceName={'user'}>
+    //
+    // </ResourceLoader>
+    <>
+      <DataSource resourceName={'user'} getDataFunc={getServerData('/users')}>
+        <TrackOrderUI />
+      </DataSource>
+      <DataSource
+        resourceName={'country'}
+        getDataFunc={getLocalStorageData('countryCode')}
+      >
+        <TrackOrderUI />
+      </DataSource>
+    </>
+  );
+};
+
+export default TrackOrder;
