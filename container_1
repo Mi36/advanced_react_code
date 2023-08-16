@@ -1,0 +1,22 @@
+import React, { useEffect, useState } from 'react';
+
+export const TrackOrderDataSource = ({ children }) => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const response = {
+        A: 'D',
+      };
+      setData(response);
+    })();
+  }, []);
+  return (
+    <>
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, { data });
+        }
+      })}
+    </>
+  );
+};
