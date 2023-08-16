@@ -16,6 +16,7 @@ export const TrackOrderDataSource = ({ children }) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, { data });
         }
+        return child;
       })}
     </>
   );
