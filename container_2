@@ -15,6 +15,7 @@ export const TrackerLoader = ({ userId, children }) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, { data });
         }
+         return child;
       })}
     </>
   );
