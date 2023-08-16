@@ -18,6 +18,7 @@ export const DataSource = ({
         if (React.isValidElement(child)) {
           return React.cloneElement(child, { [resourceName]: state });
         }
+        return child;
       })}
     </>
   );
